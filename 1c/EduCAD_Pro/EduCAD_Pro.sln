@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.2.32616.157
+VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Demo", "1c\Demo\Demo.vbproj", "{544209B2-620E-46C5-9255-E8102B450F39}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EduCAD_Pro", "1c\EduCAD_Pro\EduCAD_Pro.vbproj", "{65A699FF-F549-4D27-B744-72DB82057F08}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EduCAD_Pro", "EduCAD_Pro.vbproj", "{65A699FF-F549-4D27-B744-72DB82057F08}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{544209B2-620E-46C5-9255-E8102B450F39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{544209B2-620E-46C5-9255-E8102B450F39}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{544209B2-620E-46C5-9255-E8102B450F39}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{544209B2-620E-46C5-9255-E8102B450F39}.Release|Any CPU.Build.0 = Release|Any CPU
 		{65A699FF-F549-4D27-B744-72DB82057F08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{65A699FF-F549-4D27-B744-72DB82057F08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65A699FF-F549-4D27-B744-72DB82057F08}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -26,6 +20,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {AB0E88A6-2746-4330-95CB-9801D3B26A0D}
+		SolutionGuid = {55F4A2E3-C048-4A73-8ADC-B5ABCA2E094F}
 	EndGlobalSection
 EndGlobal
