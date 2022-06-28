@@ -1,0 +1,228 @@
+﻿' Esta linea le indica a VB.NET que debe utilizar la libreria System.Data.OleDb, lo que permitira configurar y utilizar los
+'componentes que luego se van a utilizar para conectar a la BD
+Imports System.Data.OleDb
+
+Public Class Form1
+
+    ' La variable "con" guarda la configuracion inicial que va a usar el programa para conectar a la BD, donde se indica:
+    '
+    '   Provider:   indica el tipo de Proveedor (en mi caso ACE.OLEDB.12.0 porque tengo Office 2016, en versiones
+    '               anteriores se usa Jet.OLEDB.4.0 como esta en los ejemplos que nos paso el profesor
+    ' 
+    '   Data Source: Donde se indica la ubicacion del archivo de la Base de Datos, en mi caso:
+    '               D:\src\demo\demo.mdb
+    '
+    Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\src\demo\demo.mdb")
+
+
+
+
+    ' La Subrutina Form1_Load tiene la funcion de ejecutar todo lo que se incluya en su interior al momento de cargar el formulario
+    ' cada vez que se abre. Aca podemos poner todo lo que necesitemos que se configure y/o haga al momento de abrir el 
+    ' programa.
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+    End Sub
+
+
+    Private Sub Btn_Crear_Click(sender As Object, e As EventArgs) Handles Btn_Crear.Click
+
+        Dim nro_cliente As Integer
+        Dim dni As Integer
+        Dim nombre As String
+        Dim apellido As String
+
+        ' Declaro variables que voy a utilizar con la conexion a la BD
+        Dim sqlQuery As String
+        Dim dbCmd As OleDbCommand
+        Dim resultadoQuery As Integer
+
+        ' Asigno el valor de los TextBox del formulario a las variables que voy a utilizar luego en la consulta SQL
+        nro_cliente = Int(TextBox_nroCliente.Text)
+        dni = Int(TextBox_dniCliente.Text)
+        nombre = TextBox_nombreCliente.Text
+        apellido = TextBox_apellidoCliente.Text
+
+        ' Configuro la variable "sqlQuery" con la consulta SQL que se ejecutara en la BD
+        sqlQuery = "INSERT INTO Clientes(nro_cliente, DNI, Nombre, Apellido) VALUES('" & nro_cliente & "','" & dni & "','" & nombre & "','" & apellido & "')"
+
+
+        ' Primer paso, abro la conexion a la BD
+        con.Open()
+
+        ' Segundo paso, preparo la configuracion del comando para ejecutar en la BD
+        dbCmd = New OleDbCommand(sqlQuery, con)
+
+        ' Tercer paso, ejecuto el comando utilizando un metodo llamado ExecuteNonQuery() que me va devolver el numero de filas que
+        ' fueron cambiadas en la tabla
+        resultadoQuery = dbCmd.ExecuteNonQuery()
+
+        ' Verifico si el numero de filas cambiadas es mayor a 0 (deberia serlo, dado que al crear un cliente 
+        ' deberia devolvernos un 1) y muestro un mensaje confirmando la creacion
+        ' En caso de no ser > 0 muestro un mensaje indicando que no se pudo crear el cliente
+        If resultadoQuery > 0 Then
+            MsgBox("Se creo el cliente exitosamente.")
+        Else
+            MsgBox("No se pudo crear el cliente")
+        End If
+
+        ' Quinto paso, verifico si la conexion se encuentra abierta y en caso afirmativo la cierro
+        If con.State = ConnectionState.Open Then
+            con.Close()
+        End If
+    End Sub
+
+    Private Sub Btn_Modificar_Click(sender As Object, e As EventArgs) Handles Btn_Modificar.Click
+        Dim nro_cliente As Integer
+        Dim dni As Integer
+        Dim nombre As String
+        Dim apellido As String
+
+        ' Declaro variables que voy a utilizar con la conexion a la BD
+        Dim sqlQuery As String
+        Dim dbCmd As OleDbCommand
+        Dim resultadoQuery As Integer
+
+        ' Asigno el valor de los TextBox del formulario a las variables que voy a utilizar luego en la consulta SQL
+        nro_cliente = Int(TextBox_nroCliente.Text)
+        dni = Int(TextBox_dniCliente.Text)
+        nombre = TextBox_nombreCliente.Text
+        apellido = TextBox_apellidoCliente.Text
+
+        ' Configuro la variable "sqlQuery" con la consulta SQL que se ejecutara en la BD
+        sqlQuery = "UPDATE Clientes SET DNI='" & dni & "', Nombre='" & nombre & "', Apellido='" & apellido & "' WHERE nro_cliente=" & nro_cliente
+
+
+        ' Primer paso, abro la conexion a la BD
+        con.Open()
+
+        ' Segundo paso, preparo la configuracion del comando para ejecutar en la BD
+        dbCmd = New OleDbCommand(sqlQuery, con)
+
+        ' Tercer paso, ejecuto el comando utilizando un metodo llamado ExecuteNonQuery() que me va devolver el numero de filas que
+        ' fueron cambiadas en la tabla
+        resultadoQuery = dbCmd.ExecuteNonQuery()
+
+        ' Verifico si el numero de filas cambiadas es mayor a 0 (deberia serlo, dado que al modificar/actualizar un cliente 
+        ' deberia devolvernos un 1) y muestro un mensaje confirmando la modificacion/actualizacion
+        ' En caso de no ser > 0 muestro un mensaje indicando que no se pudo modificar/actualizar el cliente
+        If resultadoQuery > 0 Then
+            MsgBox("Se modifico el cliente exitosamente.")
+        Else
+            MsgBox("No se pudo modificar el cliente")
+        End If
+
+        ' Quinto paso, verifico si la conexion se encuentra abierta y en caso afirmativo la cierro
+        If con.State = ConnectionState.Open Then
+            con.Close()
+        End If
+    End Sub
+
+    Private Sub Btn_Eliminar_Click(sender As Object, e As EventArgs) Handles Btn_Eliminar.Click
+
+        Dim nro_cliente As Integer
+
+        ' La variable "con" guarda la configuracion inicial que va a usar el programa para conectar a la BD, donde se indica:
+        '
+        '   Provider:   indica el tipo de Proveedor (en mi caso ACE.OLEDB.12.0 porque tengo Office 2016, en versiones
+        '               anteriores se usa Jet.OLEDB.4.0 como esta en los ejemplos que nos paso el profesor
+        ' 
+        '   Data Source: Donde se indica la ubicacion del archivo de la Base de Datos, en mi caso:
+        '               D:\src\demo\demo.mdb
+        '
+
+        Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\src\demo\demo.mdb")
+
+        ' Declaro variables que voy a utilizar con la conexion a la BD
+        Dim sqlQuery As String
+        Dim dbCmd As OleDbCommand
+        Dim resultadoQuery As Integer
+
+
+        ' Asigno el valor del numero de cliente en el TextBox (convertida a numero entero) del formulario a la variable "nro_cliente"
+        nro_cliente = Int(TextBox_nroCliente.Text)
+
+        ' Configuro la variable "sqlQuery" con la consulta SQL que se ejecutara en la BD
+        sqlQuery = "DELETE * FROM Clientes WHERE nro_cliente=" & nro_cliente
+
+
+        ' Primer paso, abro la conexion a la BD
+        con.Open()
+
+        ' Segundo paso, preparo la configuracion del comando para ejecutar en la BD
+        dbCmd = New OleDbCommand(sqlQuery, con)
+
+        ' Tercer paso, ejecuto el comando utilizando un metodo llamado ExecuteNonQuery() que me va devolver el numero de filas que
+        ' fueron cambiadas en la tabla
+        resultadoQuery = dbCmd.ExecuteNonQuery()
+
+        ' Verifico si el numero de filas cambiadas es mayor a 0 (deberia serlo, dado que al eliminar un cliente 
+        ' deberia devolvernos un 1) y muestro un mensaje confirmando la eliminacion
+        ' En caso de no ser > 0 muestro un mensaje indicando que no se pudo eliminar el cliente
+        If resultadoQuery > 0 Then
+            MsgBox("Se elimino el cliente exitosamente.")
+        Else
+            MsgBox("No se pudo eliminar el cliente")
+        End If
+
+        ' Quinto paso, verifico si la conexion se encuentra abierta y en caso afirmativo la cierro
+        If con.State = ConnectionState.Open Then
+            con.Close()
+        End If
+
+    End Sub
+
+    Private Sub Btn_Salir_Click(sender As Object, e As EventArgs) Handles Btn_Salir.Click
+        Application.Exit()
+    End Sub
+
+    Private Sub Btn_Buscar_Click(sender As Object, e As EventArgs) Handles Btn_Buscar.Click
+        Dim nro_cliente As Integer
+
+        ' Declaro variables que voy a utilizar con la conexion a la BD
+        Dim sqlQuery As String
+        Dim dbCmd As OleDbCommand
+        Dim resultadoQuery As OleDbDataReader
+
+        ' Me aseguro que antes de ejecutar la busqueda, el campo "nro_cliente" no este vacio
+        If TextBox_nroCliente.Text.Length > 0 Then
+            ' Asigno el valor de los TextBox del formulario a las variables que voy a utilizar luego en la consulta SQL
+            nro_cliente = Int(TextBox_nroCliente.Text)
+
+            ' Configuro la variable "sqlQuery" con la consulta SQL que se ejecutara en la BD
+            sqlQuery = "SELECT DNI, Nombre, Apellido FROM Clientes WHERE nro_cliente=" & nro_cliente
+
+
+            ' Primer paso, abro la conexion a la BD
+            con.Open()
+
+            ' Segundo paso, preparo la configuracion del comando para ejecutar en la BD
+            dbCmd = New OleDbCommand(sqlQuery, con)
+
+            ' Tercer paso, ejecuto el comando utilizando un metodo llamado ExecuteReader() y guardo el resultado de la busqueda en "resultadoQuery"
+            resultadoQuery = dbCmd.ExecuteReader(CommandBehavior.CloseConnection)
+
+            ' Verifico si el resultado tiene filas comprobando la propiedad HasRows (que tiene valor 1 o True cuadno hay resultados/filas)
+            If resultadoQuery.HasRows Then
+
+                resultadoQuery.Read()
+
+                ' Asigno el valor de los TextBox del formulario a las variables que voy a utilizar luego en la consulta SQL
+                TextBox_dniCliente.Text = resultadoQuery.Item("DNI")
+                TextBox_nombreCliente.Text = resultadoQuery.Item("Nombre")
+                TextBox_apellidoCliente.Text = resultadoQuery.Item("Apellido")
+
+            Else
+                MsgBox("No se encontro el numero de cliente indicado")
+            End If
+
+            ' Quinto paso, verifico si la conexion se encuentra abierta y en caso afirmativo la cierro
+            If con.State = ConnectionState.Open Then
+                con.Close()
+            End If
+        Else
+            MsgBox("El campo Nro de cliente no puede estar vacio")
+        End If
+    End Sub
+End Class
